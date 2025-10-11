@@ -1,7 +1,7 @@
-import moviepy.editor as mp
 from moviepy.editor import ColorClip, CompositeVideoClip, TextClip, VideoFileClip
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.config import change_settings
+
 
 change_settings({"IMAGEMAGICK_BINARY": "/usr/bin/convert"})
 
@@ -11,26 +11,48 @@ def generate_video(video_path, text_content, output_path="output.mp4"):
 
     Args:
         video_path (str): The path to the input video file.
-        text_content (str): The text string to display.
+        text_content (str): Path to the text file.
         output_path (str): The path to save the output video.
     """
     try:
-        video = VideoFileClip(video_path)
-        print(video.duration)
-        # Create a TextClip for the text
-        txt_clip = TextClip(text_content, fontsize=50, color='white',
-                            font='Arial', bg_color='black',
-                            size=(video.w, None)) # Width of the video, auto height
+        video = VideoFileClip(video_path).resize(.8)
+
+        # Create a background color clip with the same dimensions and duration as the video
+        background_clip = ColorClip(size=(VideoFileClip(video_path).w, VideoFileClip(video_path).h), color=(255,255,0), duration=video.duration)
+        # Read text content from the provided file path
+        with open(text_content, 'r') as f:
+            text_lines = f.readlines()
+        
+        print(text_lines)
+        
+        # Join lines to form the full text, stripping newlines
+        full_text = "".join(text_lines).strip()
+
+        txt_clip = TextClip(full_text, fontsize=15, color='black', font='Arial', bg_color='yellow', 
+                            size=(background_clip.w, None), method='caption')
 
         # Set the duration of the text clip to match the video
         txt_clip = txt_clip.set_duration(video.duration)
 
         # Position the text clip at the bottom of the video
-        # (x, y) = ('center', video.h - txt_clip.h - 20)  # 20 pixels from the bottom
         txt_clip = txt_clip.set_position(('center', 'bottom'))
+        
 
-        # Composite the video and the text clip
-        final_clip = CompositeVideoClip([video, txt_clip])
+        # Create the title text clip
+        title_clip = TextClip("mcat question challenge", fontsize=30, color='black',
+                              font='Arial', bg_color="yellow",
+                              size=(background_clip.w, None))
+        title_clip = title_clip.set_duration(video.duration)
+        title_clip = title_clip.set_position(('center', 'top'))
+
+        # Position the video on the background, below the title
+        video = video.set_position(("center", "center"))
+
+        # Position the text clip at the bottom of the background
+        txt_clip = txt_clip.set_position(('center', background_clip.h - txt_clip.h))
+
+        # Composite all elements onto the background
+        final_clip = CompositeVideoClip([background_clip, title_clip, video, txt_clip])
 
         # Write the output video file
         final_clip.write_videofile(output_path, codec="libx264", fps=video.fps)
@@ -46,4 +68,4 @@ if __name__ == "__main__":
     # Replace 'Your text goes here!' with the text you want to display
     # generate_video("your_video.mp4", "Your text goes here!", "output_with_text.mp4")
     print("Please provide a video path and text content to generate a short clip.")
-    generate_video(input("Video path: "), input("Text content: "))
+    generate_video("laufeyVid.mp4", "text.txt")
