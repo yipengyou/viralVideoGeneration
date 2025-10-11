@@ -1,9 +1,9 @@
-Laufey has been repeatedly turned down by potential romantic partners because she does not meet their conventional standards of attractiveness. After several failed attempts, she experiences social withdrawal and stops attending social events.
+Laufey tried flirting at the café, the park, and even the grocery store. After getting rejected every time, she gave up and started talking only to her houseplants, who at least didn’t judge her looks.
 
 Question:
-Which of the following psychological phenomena best explains Laufey’s behavior?
+Which psychological concept best explains Laufey’s behavior?
 
-A) Social facilitation – the tendency to perform tasks better in the presence of others.
-B) Social withdrawal due to low self-esteem – avoiding social interactions after repeated negative feedback.
-C) Cognitive dissonance – the discomfort experienced when holding conflicting beliefs.
-D) Operant conditioning – learning behavior through reinforcement or punishment.
+A) Social facilitation
+B) Low self-esteem
+C) Classical conditioning
+D) Operant conditioning
