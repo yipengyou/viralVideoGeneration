@@ -1,6 +1,9 @@
 import moviepy.editor as mp
 from moviepy.editor import ColorClip, CompositeVideoClip, TextClip, VideoFileClip
 from moviepy.video.tools.subtitles import SubtitlesClip
+from moviepy.config import change_settings
+
+change_settings({"IMAGEMAGICK_BINARY": "/usr/bin/convert"})
 
 def generate_video(video_path, text_content, output_path="output.mp4"):
     """
@@ -13,7 +16,7 @@ def generate_video(video_path, text_content, output_path="output.mp4"):
     """
     try:
         video = VideoFileClip(video_path)
-
+        print(video.duration)
         # Create a TextClip for the text
         txt_clip = TextClip(text_content, fontsize=50, color='white',
                             font='Arial', bg_color='black',
