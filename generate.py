@@ -33,9 +33,6 @@ def generate_video(video_path, text_content, output_path):
 
         # Set the duration of the text clip to match the video
         txt_clip = txt_clip.set_duration(video.duration)
-
-        # Position the text clip at the bottom of the video
-        txt_clip = txt_clip.set_position(('center', 'bottom'))
         
 
         # Create the title text clip
@@ -48,8 +45,8 @@ def generate_video(video_path, text_content, output_path):
         # Position the video on the background, below the title
         video = video.set_position(("center", title_clip.h))
 
-        # Position the text clip at the bottom of the background
-        txt_clip = txt_clip.set_position(('center', background_clip.h - txt_clip.h))
+        # Position the text clip at the bottom of the video
+        txt_clip = txt_clip.set_position(('center', video.h))
 
         # Composite all elements onto the background
         final_clip = CompositeVideoClip([background_clip, title_clip, video, txt_clip])
