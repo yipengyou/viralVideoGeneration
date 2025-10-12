@@ -28,7 +28,7 @@ def generate_video(video_path, text_content, output_path):
         # Join lines to form the full text, stripping newlines
         full_text = "".join(text_lines).strip()
 
-        txt_clip = TextClip(full_text, fontsize=20, color='black', font='Helvetica-Bold', bg_color='yellow', 
+        txt_clip = TextClip(full_text, fontsize=25, color='black', font='Helvetica-Bold', bg_color='yellow', 
                             size=(background_clip.w, None), method='caption')
 
         # Set the duration of the text clip to match the video
