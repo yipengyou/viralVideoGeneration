@@ -15,16 +15,14 @@ def generate_video(video_path, text_content, output_path):
         output_path (str): The path to save the output video.
     """
     try:
-        video = VideoFileClip(video_path).resize(.6)
+        video = VideoFileClip("inputClips/" + video_path).resize(.6)
 
         # Create a background color clip with the same dimensions and duration as the video
         background_clip = ColorClip(size=(VideoFileClip(video_path).w, VideoFileClip(video_path).h), color=(255,255,0), duration=video.duration)
         # Read text content from the provided file path
-        with open(text_content, 'r') as f:
+        with open("inputText/" + text_content, 'r') as f:
             text_lines = f.readlines()
-        
-        print(text_lines)
-        
+                
         # Join lines to form the full text, stripping newlines
         full_text = "".join(text_lines).strip()
 
@@ -54,7 +52,7 @@ def generate_video(video_path, text_content, output_path):
         # Write the output video file
         final_clip.write_videofile(output_path, codec="libx264", fps=video.fps)
 
-        print(f"Video generated successfully: {output_path}")
+        print(f"Video generated successfully: {"outputs/" + output_path}")
 
     except Exception as e:
         print(f"An error occurred: {e}")
