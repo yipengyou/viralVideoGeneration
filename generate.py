@@ -16,9 +16,8 @@ def generate_video(video_path, text_content, output_path):
     """
     try:
         video = VideoFileClip("inputClips/" + video_path).resize(.6)
-
         # Create a background color clip with the same dimensions and duration as the video
-        background_clip = ColorClip(size=(VideoFileClip(video_path).w, VideoFileClip(video_path).h), color=(255,255,0), duration=video.duration)
+        background_clip = ColorClip(size=(VideoFileClip("inputClips/" + video_path).w, VideoFileClip("inputClips/" + video_path).h), color=(255,255,0), duration=video.duration)
         # Read text content from the provided file path
         with open("inputText/" + text_content, 'r') as f:
             text_lines = f.readlines()
@@ -26,7 +25,7 @@ def generate_video(video_path, text_content, output_path):
         # Join lines to form the full text, stripping newlines
         full_text = "".join(text_lines).strip()
 
-        txt_clip = TextClip(full_text, fontsize=25, color='black', font='Helvetica-Bold', bg_color='yellow', 
+        txt_clip = TextClip(full_text, fontsize=24, color='black', font='Helvetica-Bold', bg_color='yellow', 
                             size=(background_clip.w, None), method='caption')
 
         # Set the duration of the text clip to match the video
@@ -50,7 +49,7 @@ def generate_video(video_path, text_content, output_path):
         final_clip = CompositeVideoClip([background_clip, title_clip, video, txt_clip])
 
         # Write the output video file
-        final_clip.write_videofile(output_path, codec="libx264", fps=video.fps)
+        final_clip.write_videofile("outputs/" + output_path, codec="libx264", fps=video.fps)
 
         print(f"Video generated successfully: {"outputs/" + output_path}")
 

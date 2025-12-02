@@ -1,0 +1,8 @@
+A bald man looks to punish the doordasher for being late. He swings a hammer of mass 0.2 kg at 5 m/s, coming to rest in 0.05 seconds.
+
+Whats the average force exerted on the dasher?
+
+A. 2 N
+B. 20 N
+C. 200 N
+D. 2000 N
